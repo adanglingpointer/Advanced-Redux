@@ -17,6 +17,7 @@ function App() {
 
   useEffect(() => {
     const sendCartData = async () => {
+      /*
       dispatch(
         uiActions.showNotification({
           status: "pending",
@@ -24,6 +25,8 @@ function App() {
           message: "sending cart data",
         })
       );
+      */
+      /*
       const response = await fetch(
         "https://redux-project-fe4d7-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
         { method: "PUT", body: JSON.stringify(cart) }
@@ -32,7 +35,8 @@ function App() {
       if (!response.ok) {
         throw new Error("Sending cart data failed");
       }
-
+      */
+      /*
       dispatch(
         uiActions.showNotification({
           status: "success",
@@ -40,6 +44,7 @@ function App() {
           message: "sent cart data successfully",
         })
       );
+      */
     };
 
     if (isInitial) {
