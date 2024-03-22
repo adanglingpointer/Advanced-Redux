@@ -42,7 +42,7 @@ const cartSlice = createSlice({
 
 //
 
-const sendCartData = (cart) => {
+export const sendCartData = (cart) => {
   return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
@@ -52,22 +52,36 @@ const sendCartData = (cart) => {
       })
     );
 
-    const response = await fetch(
-      "https://redux-project-fe4d7-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
-      { method: "PUT", body: JSON.stringify(cart) }
-    );
+    const sendRequest = async () => {
+      const response = await fetch(
+        "https://redux-project-fe4d7-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
+        { method: "PUT", body: JSON.stringify(cart) }
+      );
 
-    if (!response.ok) {
-      throw new Error("Sending cart data failed");
+      if (!response.ok) {
+        throw new Error("Sending cart data failed");
+      }
+    };
+
+    try {
+      await sendRequest();
+
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "success..",
+          message: "sent cart data successfully",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "error..",
+          message: "sending cart data failed",
+        })
+      );
     }
-
-    dispatch(
-      uiActions.showNotification({
-        status: "success",
-        title: "success..",
-        message: "sent cart data successfully",
-      })
-    );
   };
 };
 
